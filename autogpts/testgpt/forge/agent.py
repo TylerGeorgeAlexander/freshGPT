@@ -151,13 +151,14 @@ class ForgeAgent(Agent):
 
         # Extract the ability from the answer
         ability = answer["ability"]
+        print("answer", answer)
 
         # Run the ability and get the output
         # We don't actually use the output in this example
         output = await self.abilities.run_ability(
             task_id, ability["name"], **ability["args"]
         )
-
+        print(output)
         # Set the step output to the "speak" part of the answer
         step.output = answer["thoughts"]["speak"]
 
