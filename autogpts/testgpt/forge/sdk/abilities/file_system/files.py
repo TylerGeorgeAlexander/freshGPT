@@ -75,4 +75,13 @@ async def read_file(agent, task_id: str, file_path: str) -> bytes:
     """
     Read data from a file
     """
-    return agent.workspace.read(task_id=task_id, path=file_path)
+    read_text = agent.workspace.read(task_id=task_id, path=file_path)
+    agent.workspace.write(task_id=task_id, path="/output.txt", data=read_text)
+    await agent.db.create_artifact(
+        task_id=task_id,
+        file_name='output.txt',
+        relative_path='/output.txt',
+        agent_created=True,
+    )
+    print("Testing",file_path)
+    return read_text
